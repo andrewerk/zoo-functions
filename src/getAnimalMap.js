@@ -1,7 +1,7 @@
 const { species } = require('../data/zoo_data');
 const data = require('../data/zoo_data');
 
-console.log(species);
+// console.log(species);
 // const northEast = [];
 // const northWest = [];
 // const southEast = [];
@@ -21,13 +21,25 @@ console.log(species);
 //   return result;
 // }
 
+const completeMap = {
+  NE: [],
+  NW: [],
+  SE: [],
+  SW: [],
+};
+
+function speciesArea(...areaInput) {
+  areaInput.forEach((area) =>
+    species.forEach((specie) => {
+      if (specie.location === area) {
+        const group = { [specie.name]: specie.residents.map((resident) => resident.name) };
+        completeMap[area].push(group);
+      }
+    }));
+}
+
 function getAnimalMap(options) {
-//   if (!options) {
-//     return noParametersGiven();
-//   }
-//   if (options.sex === 'male' || options.sex === 'female') {
-//     return
-//   }
+  const map = speciesArea('NE', 'NW', 'SE', 'SW');
 }
 
 module.exports = getAnimalMap;
