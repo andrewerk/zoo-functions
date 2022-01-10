@@ -39,7 +39,7 @@ function speciesArea(...areaInput) {
 }
 
 function getAnimalMap(options) {
-  const map = speciesArea('NE', 'NW', 'SE', 'SW');
+  speciesArea('NE', 'NW', 'SE', 'SW');
 }
 
 module.exports = getAnimalMap;
