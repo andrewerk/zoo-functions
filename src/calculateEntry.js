@@ -1,3 +1,4 @@
+const { prices } = require('../data/zoo_data');
 const data = require('../data/zoo_data');
 
 function countEntrants(entrants) {
@@ -19,7 +20,14 @@ function countEntrants(entrants) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (!entrants || Object.keys(entrants).length === 0) {
+    return 0;
+  }
+  const entries = countEntrants(entrants);
+  const totalAmount = entries.child * prices.child
+  + entries.adult * prices.adult
+  + entries.senior * prices.senior;
+  return totalAmount;
 }
 
 module.exports = { calculateEntry, countEntrants };
