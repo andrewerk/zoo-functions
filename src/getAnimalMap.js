@@ -40,7 +40,7 @@ function includeNamesSorted() {
     const animals = [];
     species.forEach((specie) => {
       if (specie.location === area) {
-        const group = { [specie.name]: specie.residents.map((resident) => resident.name) };
+        const group = { [specie.name]: specie.residents.map((resident) => resident.name).sort() };
         animals.push(group);
       }
     });
@@ -50,14 +50,15 @@ function includeNamesSorted() {
   return completeMap;
 }
 
-function includeSex(sex) {
+function includeSex(nameOption) {
   const completeMap = {};
   areas.forEach((area) => {
     const animals = [];
     species.forEach((specie) => {
       if (specie.location === area) {
-        const names = specie.residents.filter((res) => res.sex === 'female');
+        const names = specie.residents.filter((res) => res.sex === nameOption.sex);
         const names2 = names.map((nome) => nome.name);
+        if (nameOption.sorted) { names2.sort(); }
         const group = { [specie.name]: names2,
         };
         animals.push(group);
@@ -74,7 +75,10 @@ function includeNames(nameOption) {
     return includeNamesOnly();
   }
   if (nameOption.sex) {
-    return includeSex(nameOption.sex);
+    return includeSex(nameOption);
+  }
+  if (nameOption.sorted) {
+    return includeNamesSorted();
   }
 }
 
@@ -88,6 +92,6 @@ function getAnimalMap(options) {
   return noParametersGiven();
 }
 
-console.log(getAnimalMap({ includeNames: true, sex: 'female' }));
+console.log(getAnimalMap({ includeNames: true, sorted: true }));
 
 module.exports = getAnimalMap;
